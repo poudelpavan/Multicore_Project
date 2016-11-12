@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 public class PopulationQuery {
@@ -83,6 +84,8 @@ public class PopulationQuery {
 		System.out.println("Please give west, south, east, north coordinates of your query rectangle:");
 		Scanner scan_input = new Scanner(System.in);
 		String[] input_array = scan_input.nextLine().split(" ");
+		NumberFormat percentageFormat = NumberFormat.getPercentInstance();
+		percentageFormat.setMinimumFractionDigits(2);
 		while (input_array.length == 4) {
 			int west = Integer.parseInt(input_array[0]);
 			int south = Integer.parseInt(input_array[1]);
@@ -91,9 +94,8 @@ public class PopulationQuery {
 			// validate inputs
 
 			Pair<Integer, Float> result = process(west, south, east, north);
-			System.out.println("population of rectangle: " + result.getElementA());
-			System.out.println(String.format("percent of total population: %1$.2f", result.getElementB()));
-
+			System.out.println("Population of rectangle: " + result.getElementA());
+			System.out.println("Percent of total population: " + percentageFormat.format(result.getElementB()));
 			System.out.println("Please give west, south, east, north coordinates of your query rectangle:");
 			input_array = scan_input.nextLine().split(" ");
 		}
@@ -111,7 +113,7 @@ public class PopulationQuery {
 		version_handler.init();
 	}
 
-	public static Pair<Integer, Float> process(int a, int b, int c, int d) {
-		return null;
+	public static Pair<Integer, Float> process(int west, int south, int east, int north) {
+		return version_handler.process(west, south, east, north);
 	}
 }
