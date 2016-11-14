@@ -15,6 +15,7 @@ public class PopulationQuery {
 	private static BaseVersion version_handler;
 
 	// parse the input file into a large array held in a CensusData object
+	@SuppressWarnings("resource")
 	public static CensusData parse(String filename) {
 		CensusData result = new CensusData();
 
@@ -108,6 +109,9 @@ public class PopulationQuery {
 		switch (versionNumber) {
 		case 1:
 			version_handler = new VersionOne(censusdata, no_of_columns, no_of_rows);
+			break;
+		case 2:
+			version_handler = new VersionTwo(censusdata, no_of_columns, no_of_rows);
 			break;
 		}
 		version_handler.init();

@@ -21,10 +21,7 @@ public class VersionOne extends BaseVersion {
 				continue;
 			}
 		}
-		this.min_X_Coordinate = rec_edges.left;
-		this.max_X_Coordinate = rec_edges.right;
-		this.min_Y_Coordinate = rec_edges.bottom;
-		this.max_Y_Coordinate = rec_edges.top;
+		calculateAxisValue();
 	}
 
 	@Override
@@ -33,8 +30,8 @@ public class VersionOne extends BaseVersion {
 		for(CensusGroup group : censusData.getCensusGroupData())
 		{
 			if(group != null){
-				int point_x = pointMapper(group.longitude, min_X_Coordinate, max_X_Coordinate, columns);
-				int point_y = pointMapper(group.latitude, min_Y_Coordinate, max_Y_Coordinate, rows);
+				int point_x = pointMapper(group.longitude, getMin_X_Coordinate(), getMax_X_Coordinate(), columns);
+				int point_y = pointMapper(group.latitude, getMin_Y_Coordinate(), getMax_Y_Coordinate(), rows);
 				if(point_y >= south && point_y <= north){
 					if(point_x >= west && point_x <= east){
 						bucketPopulation = bucketPopulation + group.population;
